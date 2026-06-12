@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FruitVision AI Ultra Premium</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Floating aurora gradient background -->
+    <div class="mesh-background"></div>
+    <div class="particles">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="wrapper">
+
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <div class="logo-box">🍎</div>
+            <h1>FruitVision AI</h1>
+            <p>Prediksi buah otomatis pakai CNN dengan visual premium, responsive di PC & HP.</p>
+            <div class="info-cards">
+                <div class="card-mini">⚡ CNN Engine</div>
+                <div class="card-mini">🎯 5 Classes</div>
+                <div class="card-mini">🚀 v2.1</div>
+            </div>
+        </div>
+
+        <!-- Right Card Panel -->
+        <div class="card">
+            <div class="header">
+                <h2>Upload Gambar Buah</h2>
+                <p>Drag & drop atau klik untuk upload</p>
+            </div>
+
+            <form action="/predict" method="POST" enctype="multipart/form-data">
+
+                <label class="upload-box">
+                    <input type="file" name="image" id="imageInput" accept="image/*" required>
+                    <div class="upload-content">
+                        <div class="upload-icon">📸</div>
+                        <h3>Drag & Drop Image</h3>
+                        <span>atau klik untuk pilih</span>
+                    </div>
+                </label>
+
+                <div class="preview-box">
+                    <img id="previewImage">
+                </div>
+
+                <div class="loading-box" id="loadingBox">🔄 Scanning AI...</div>
+
+                <button type="submit">🚀 Prediksi Sekarang</button>
+            </form>
+
+            {% if prediction %}
+            <div class="result-card animate">
+                <p>HASIL PREDIKSI</p>
+                <h1>{{ prediction }}</h1>
+                <div class="confidence-bar">
+                    <div class="confidence-fill"></div>
+                </div>
+                <h3>Confidence: {{ confidence }}</h3>
+            </div>
+            <canvas id="confetti"></canvas>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
